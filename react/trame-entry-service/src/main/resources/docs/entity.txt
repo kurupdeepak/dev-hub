@@ -1,0 +1,14 @@
+{
+  "_id": ObjectId("..."), // auto-generated
+  "timestamp": "2025-09-12T14:30:00Z",
+  "category": "Follow-Up",
+  "sub_category": "Glucose Reading",
+  "content": "Need to check how my glucose responds to soaked almonds",
+  "tags": ["glucose", "almonds", "follow-up"],
+  "metadata": {
+    "mood": "curious",
+    "location": "home",
+    "source": "manual", // future: 'voice', 'sensor', 'AI-summary'
+    "confidence": 0.9    // optional: if generated/summarized
+  }
+}
