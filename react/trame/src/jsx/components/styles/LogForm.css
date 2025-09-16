@@ -1,0 +1,95 @@
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+label,
+legend {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.75rem 1rem 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+fieldset legend {
+  font-size: 14px;
+  padding: 0 8px;
+  color: #444;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 12px;
+  /* margin-top: 0.2rem; */
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 4px 6px;
+  background-color: #f3f3f3;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.radio-group label:hover {
+  background-color: #e2e2e2;
+}
+
+input[type="radio"] {
+  accent-color: #2b72e9;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}

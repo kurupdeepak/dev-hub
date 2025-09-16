@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/trame/api/entries")
+@RequestMapping("/api/trame/v1/entries")
 public class LogEntryController {
     private final LogEntryService service;
 

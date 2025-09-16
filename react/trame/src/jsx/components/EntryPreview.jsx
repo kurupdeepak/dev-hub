@@ -7,8 +7,15 @@ function EntryPreview(props) {
     return (
         <div className="entryPreview" id="preview">
             <h3>Entry Preview:</h3>
-            <pre id="previewContent">
-             {entry  && <table><tbody><tr><td>{entry.day}</td><td>{entry.content}</td></tr></tbody></table>}
+            <pre id="previewContent" style={{
+                fontSize: "0.75rem",        // small font
+                whiteSpace: "nowrap",       // single line
+                overflow: "hidden",         // crop if too long
+                textOverflow: "ellipsis",   // ellipsis for long content
+                width: "100%",
+                display: "block"
+            }}>
+                {entry && JSON.stringify(entry)}
             </pre>
         </div>
     )

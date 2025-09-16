@@ -1,5 +1,9 @@
 import { useState, useRef } from "react"
-function LogForm({ onSubmit }) {
+import './styles/LogForm.css'
+import { createEntry } from '../../services/entryService';
+
+function LogForm({ onSubmit: setEntryState }) {
+    const [errors, setErrors] = useState({});
     const [logForm, setForm] = useState({
         dateInput: new Date().toISOString().split("T")[0],
         contentInput: ""
@@ -9,46 +13,68 @@ function LogForm({ onSubmit }) {
     const categoryRef = useRef()
     const subCategoryRef = useRef()
     const contentRef = useRef()
-    const handleSubmit = () => {
-        // const name = nameRef.current.value;
-        // if (!name.trim()) {
-        //     alert("Name is required");
-        //     return;
-        // }
-        // // proceed to submit
+
+    const validate = () => {
+        const newErrors = {};
+        if (!contentRef.current.value.trim()) newErrors.content = "Description required";
+        return newErrors;
     };
-    function populateState() {
+
+    const handleChange = (e) => {
+        setForm({ ...logForm, [e.target.name]: e.target.value });
+    };
+    function getRadioValue(name, refObject) {
+        const selectedRadioGroup = refObject.current.querySelectorAll("input[name='" + name + "']");
+        let value = ""
+        for (let radio of selectedRadioGroup) {
+            if (radio.checked) {
+                value = radio.value;
+                break;
+            }
+        }
+        return value;
+    }
+    const postEntry = async (topEntry) => {
+        // POST to backend
+        try {
+            const saved = await createEntry(topEntry);
+            console.log("Saved entry:", saved);
+        } catch (err) {
+            console.error("Error:", err);
+        }
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const newErrors = validate();
+        setErrors(newErrors);
+        let selectedSubCategory = getRadioValue('subcategory', subCategoryRef);
+        let selectedCategory = getRadioValue('category', categoryRef);
+        if (Object.keys(newErrors).length != 0) {
+            return;
+        }
+
+        console.log("Form submitted: " + JSON.stringify(logForm));
+
         const topEntry = {
             day: dateRef.current.value,
-            category: categoryRef.current.value,
-            subCategory: subCategoryRef.current.value,
+            category: selectedCategory,
+            subCategory: selectedSubCategory,
             content: contentRef.current.value
         };
-        onSubmit(topEntry)
-    }
+        setEntryState(topEntry)
+        postEntry(topEntry)
+    };
     return (
         <>
-            <h1>Log an Entry</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="datetime">Date</label>
+            <form onSubmit={handleSubmit}>  {/* Optional wrapper */}
+                <h1>Log Entry</h1>
+
+                <label htmlFor="dayControl">Date</label>
                 <input type="date" id="dayControl" defaultValue={logForm.dateInput} ref={dateRef} />
-                {/* <label htmlFor="category">Category</label>
-                <select id="category" ref={categoryRef}>
-                    <option>Thoughts</option>
-                    <option>Actions</option>
-                    <option>Questions</option>
-                    <option>Observations</option>
-                    <option>Ideas</option>
-                    <option>Follow-Up</option>
-                    <option>Discoveries</option>
-                    <option>References</option>
-                </select> */}
-                <fieldset style={{ fontSize: "14px", marginBottom: "10px" }}>
+
+                <fieldset>
                     <legend>Category</legend>
-                    <div
-                        ref={categoryRef}
-                        style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "14px" }}
-                    >
+                    <div ref={categoryRef} className="radio-group">
                         <label>
                             <input type="radio" name="category" value="Thoughts" defaultChecked /> Thoughts
                         </label>
@@ -75,18 +101,10 @@ function LogForm({ onSubmit }) {
                         </label>
                     </div>
                 </fieldset>
-                {/*<label htmlFor="subcategory">Sub-Category</label>
-                 <select id="subcategory" ref={subCategoryRef}>
-                    <option>Food</option>
-                    <option>Physical Activity</option>
-                    <option>Glucose Reading</option>
-                    <option>General</option>
-                    <option>Not Sure</option>
-                    <option>TV</option>
-                </select> */}
-                <fieldset style={{ fontSize: "14px", marginBottom: "10px" }}>
+
+                <fieldset>
                     <legend>Sub-Category</legend>
-                    <div ref={subCategoryRef} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "14px" }}>
+                    <div ref={subCategoryRef} className="radio-group">
                         <label>
                             <input type="radio" name="subcategory" value="Food" defaultChecked /> Food
                         </label>
@@ -107,9 +125,11 @@ function LogForm({ onSubmit }) {
                         </label>
                     </div>
                 </fieldset>
+
                 <label htmlFor="content">Description</label>
-                <textarea id="content" ref={contentRef} rows="5" placeholder="Write your note here..."></textarea>
-                <button onClick={populateState}>Submit</button>
+                <textarea id="content" ref={contentRef} placeholder="Write your note here..." />
+                {errors.content && <div style={{ color: "red" }}>{errors.content}</div>}
+                <button type="submit">Submit</button>
             </form>
         </>
     )
