@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Log System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    select, textarea, input[type="datetime-local"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .entry-preview {
+      margin-top: 20px;
+      background: #eef;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Logs</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Log an Entry</h1>
+      
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Personal Log System
+  </footer>
+
+  <script>
+    function submitEntry() {
+      const datetime = document.getElementById('datetime').value;
+      const category = document.getElementById('category').value;
+      const subcategory = document.getElementById('subcategory').value;
+      const content = document.getElementById('content').value;
+
+      const log = {
+        timestamp: datetime,
+        category,
+        sub_category: subcategory,
+        content
+      };
+
+      document.getElementById('preview').style.display = 'block';
+      document.getElementById('previewContent').textContent = JSON.stringify(log, null, 2);
+    }
+  </script>
+</body>
+</html>
