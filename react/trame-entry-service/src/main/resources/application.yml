@@ -1,4 +1,12 @@
+debug: true
+
+logging:
+  level:
+    org.veromatrix: DEBUG
+    root: INFO
+    org.springframework: DEBUG
+
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/personal_log_db
+      uri: mongodb://localhost:27017/trackme_db

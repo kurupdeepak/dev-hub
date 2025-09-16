@@ -3,6 +3,8 @@ package org.veromatrix.trame.entryservice.web;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.veromatrix.trame.entryservice.transfer.LogEntryTO;
+import org.veromatrix.trame.entryservice.web.service.LogEntryService;
+import org.veromatrix.trame.entryservice.web.service.LogEntryServiceImpl;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -13,7 +15,7 @@ import java.util.List;
 public class LogEntryController {
     private final LogEntryService service;
 
-    public LogEntryController(LogEntryService service) {
+    public LogEntryController(LogEntryServiceImpl service) {
         this.service = service;
     }
 
@@ -29,7 +31,7 @@ public class LogEntryController {
     @PostMapping
     public ResponseEntity<LogEntryTO> saveEntry(@RequestBody LogEntryTO entry){
         LogEntryTO logEntryTO = service.saveEntry(entry);
-        return ResponseEntity.created(URI.create("/" + logEntryTO)).build();
+        return ResponseEntity.created(URI.create("/" + logEntryTO.getEntryId())).body(logEntryTO);
     }
 
     @PutMapping("/{log-id}")

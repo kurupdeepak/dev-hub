@@ -1,25 +1,37 @@
 package org.veromatrix.trame.entryservice.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(collection="log_entries")
-@Getter@Setter
+@Data
 public class LogEntry {
     @Id
     private String id;
+
+    @Field("entry_id")
+    private Long entryId;
+
     private LocalDate day;
-    private LocalDateTime timestamp;
+
+    private Long timestamp = Instant.now().getEpochSecond();
+
     private String category;
+
+    @Field("sub_category")
     private String subCategory;
+
     private String content;
+
     private List<String> tags;
+
     private Metadata metadata;
-    private boolean active;
+
+    private Boolean active;
 }

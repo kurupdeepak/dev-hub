@@ -1,22 +1,31 @@
 package org.veromatrix.trame.entryservice.transfer;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 public class LogEntryTO {
     private String id;
+
     private LocalDate day;
-    private LocalDateTime timestamp;
+
+    private Long entryId;
+
+    private Long timestamp;
+
     private String category;
+
+    @JsonProperty("sub_category")
     private String subCategory;
+
     private String content;
+
     private List<String> tags;
+
     private MetadataTO metadata;
-    private boolean isActive;
+
+    private Boolean active;
 }

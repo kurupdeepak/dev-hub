@@ -1,14 +1,19 @@
 package org.veromatrix.trame.entryservice.web.mapper;
 
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 import org.veromatrix.trame.entryservice.entity.LogEntry;
+import org.veromatrix.trame.entryservice.entity.Metadata;
 import org.veromatrix.trame.entryservice.transfer.LogEntryTO;
+import org.veromatrix.trame.entryservice.transfer.MetadataTO;
 import org.veromatrix.trame.entryservice.web.EntryServiceException;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface LogEntryMapper {
+    @Mapping(source="timestamp" , target = "timestamp",defaultExpression ="java(java.time.Instant.now().getEpochSecond())")
+    @Mapping(source = "active", target = "active",defaultValue = "true")
+    @Mapping(source = "metadata", target = "metadata",defaultExpression = "java(new Metadata())")
     LogEntry mapToEntity(LogEntryTO entryTO);
 
     List<LogEntry> mapToEntityAsList(List<LogEntryTO> entryTO);
@@ -17,7 +22,12 @@ public interface LogEntryMapper {
 
     LogEntryTO mapFromEntity(LogEntry entryTO);
 
-    LogEntry mergeToEntity(LogEntryTO param, LogEntry entry);
+    Metadata mapToEntity(MetadataTO metadataTO);
+
+    MetadataTO mapFromEntity(Metadata metadata);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    LogEntry mergeToEntity(LogEntryTO param, @MappingTarget LogEntry entry);
 
     default LogEntry patchToEntity(LogEntryTO param, LogEntry entry) {
         if (param == null || entry == null) {

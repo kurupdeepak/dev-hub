@@ -6,7 +6,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.veromatrix.trame.entryservice.transfer.ErrorResponseTO;
 
 @ControllerAdvice
-public class ErrorHandler {
+public class LogEntryErrorHandler {
 
     public ErrorResponseTO handleEntryServiceException(EntryServiceException e, WebRequest request){
         ErrorResponseTO error = new ErrorResponseTO();

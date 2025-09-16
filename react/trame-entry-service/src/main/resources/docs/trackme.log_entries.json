@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "68c8db893a1d075d67a2330d"
+  },
+  "timestamp": "2025-09-15T12:00:00Z",
+  "category": "Ideas",
+  "sub_category": "General",
+  "entry_id": 0,
+  "day": "2025-09-15",
+  "active": "false",
+  "content": "What if I auto-summarize logs weekly?",
+  "tags": [
+    "auto",
+    "summary",
+    "weekly"
+  ],
+  "metadata": {
+    "mood": "creative",
+    "source": "manual"
+  }
+}]
