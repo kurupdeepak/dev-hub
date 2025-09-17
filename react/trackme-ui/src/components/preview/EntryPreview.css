@@ -1,0 +1,50 @@
+ .entry-preview {
+     font-size: 0.9rem;
+     background-color: #f8f8f8;
+     padding: 12px 16px;
+     margin-top: 30px;
+     border-radius: 6px;
+     border: 1px solid #ddd;
+     font-family: 'Courier New', monospace;
+     color: #333;
+ }
+
+ .entry-preview ul {
+     list-style-type: none;
+     padding-left: 0;
+ }
+
+ .entry-preview li {
+     margin-bottom: 8px;
+ }
+
+ .entry-preview li::before {
+     content: "\2022";
+     color: #0077cc;
+     display: inline-block;
+     width: 1em;
+     margin-left: -1em;
+ }
+
+ ul.horizontal-list {
+  display: flex;
+  gap: 1rem; /* spacing between items */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap; /* optional: wrap to next line if too long */
+}
+
+ul.horizontal-list li {
+  white-space: nowrap; /* keep content in a single line */
+  font-size: 0.9rem;
+}
+ul.horizontal-list li::after {
+  content: ",";
+  margin-left: 1rem;
+  color: #ccc;
+}
+
+ul.horizontal-list li:last-child::after {
+  content: "";
+}
